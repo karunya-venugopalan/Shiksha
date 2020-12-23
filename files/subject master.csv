@@ -1,0 +1,19 @@
+Code,Name,Description
+c-mat,Maths,Core
+c-eng,English,First Language
+c-sci,Science,Core
+c-sst,Social Studies,Core
+sl-sa,Sanskrit,Second Language
+sl-ta,Tamil,Second Language
+sl-hi,Hindi,Second Language
+sl-fr,French,Second Language
+tl-ta,Tamil,Third Language
+tl-hi,Hindi,Third Language
+c-phy,Physics,Core
+c-che,Chemistry,Core
+c-eco,Economics,Core
+c-acc,Accountancy,Core
+c-bs,Business Maths,Elective
+c-cs,Computer Science,Elective
+c-bio,Biology,Elective
+

@@ -1,0 +1,17 @@
+upload.html
+
+<!-- {% extends "layout.html" %}
+{% block content %}
+<div class="container-section">
+  <form action="/upload" method="POST" enctype="multipart/form-data" class="form-horizontal">
+    <legend class="border-bottom mb-4">UPLOAD FILE</legend>
+      <div class="form-group">
+        <label for="inputFile">Select file</label>
+        <input type="file" class="custom-file-input" name="inputFile" id="inputFile">  
+      </div>
+
+      <button type="submit" class="btn btn-default">Upload</button>
+      
+  </form>
+</div>
+{% endblock content %} -->

@@ -1,0 +1,30 @@
+{% extends "principal_layout.html" %}
+{% block content %}
+<legend class="border-bottom mb-4"><b>{{ title }}</b></legend>
+    <form method="POST" action="" class="form-horizontal">
+        {{ form.hidden_tag() }}
+            
+                            
+            <div class="form-group row" style="margin-top: 23px;">
+                    {{ form.code.label(class="form-control-label col-sm-3") }}
+                    {{ form.code(class="form-control form-control-sm col-sm-3 ") }}
+                </div>
+                
+                <div class="form-group row" style="margin-top: 23px;">
+                    {{ form.name.label(class="form-control-label col-sm-3") }}
+                    {{ form.name(class="form-control form-control-sm col-sm-3 ") }}
+                </div>
+
+                <div class="form-group row" style="margin-top: 23px;">
+                    {{ form.description.label(class="form-control-label col-sm-3") }}
+                    {{ form.description(class="form-control form-control-sm col-sm-3 ") }}
+                </div>
+
+                <div class="form-group col-sm-2" style="margin-top: 49px; margin-left: 45%">
+                    {{ form.submit(class="btn btn-info") }}
+                </div>
+                <input type="button" class="btn btn-info" value="BACK" style = "margin-left: 47.5%;" onclick="history.back(-1)" />
+        
+    </form>
+
+{% endblock content %}

@@ -1,0 +1,18 @@
+{% extends "principal_layout.html" %}
+{% block content %}
+<div class="alert alert-secondary" style="width: 120%">
+  <h3 style="color: #272927; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"><b>Hello {{s}}!</b></h3>
+  {%if s1%}
+    <h4><b>Class: {{s1}}</b></h4>
+  {%endif%}
+  <br>
+  <p style="font-size: 25px">Welcome to Shiksha, your friendly assistant for managing classes online!<p>
+<br>
+  <p style="font-size: 20px">We, the team of Shiksha, aim at providing a platform for a better, easier and hurdle-free teaching-learning experience and have incorporated various functionalities which will aid you through the journey.</p>
+
+<p style="font-size: 20px">We hope our services meet your expectations. </p>
+
+<p style="font-size: 20px">For queries and suggestion, please feel free to reach out to us anytime at shikshanoreply@gmail.com. </p>
+</div>
+
+{% endblock content %}

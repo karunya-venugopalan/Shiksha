@@ -1,0 +1,154 @@
+{% extends "teacher_layout.html" %}
+
+
+{% block style %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>  -->
+
+{% endblock style %} 
+
+{% block content %}
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+<div style="width: 120%; ">  
+    <legend class="border-bottom mb-4"><b>View Materials</b></legend>
+
+    <form method="POST" action="" class="form-horizontal">
+            {{ form.hidden_tag() }}
+            <input type="hidden" name="personid" id="personid" value='{{ personid }}'>
+            <fieldset class="form-group">
+                <div class="form-group row" >
+                    {{ form.class_opts.label(class="form-control-label col-sm-2") }}
+                    {{ form.class_opts(class="form-control form-control-sm col-sm-3") }}
+                </div>
+                <div class="form-group row" >
+                    {{ form.subject_opts.label(class="form-control-label col-sm-2") }}
+                    {{ form.subject_opts(class="form-control form-control-sm col-sm-3") }}
+                </div>
+                <br>
+                <div class="form-group col-sm-3">
+                    <input style="margin-left: 200%;" type = "submit" class="btn btn-info " name = "action" value = "Go">
+                </div>
+
+            </fieldset>
+
+            
+        </form>
+    
+
+
+{% if materials %}
+<form action="{{url_for('delete_material', personid=personid, classid=classid, subjectcode=subjectcode)}}" method="POST">
+        <br />    
+        <table class="table table-bordered  table-hover ">
+  
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Material</th>
+                    <th>Start date</th>
+                    <th>Start Time</th>
+                    <th>End Date</th>
+                    <th>End Time</th>
+                    <th>Edit</th>
+                <tr>
+            </thead>
+            <tbody>
+                {% for material in materials %}
+                  <tr>
+                    <td>
+                      <input type="checkbox" onclick="checkParent()" name="mycheckbox" value={{ material.id }} id="child" />
+                    </td> 
+                    <td><a href="{{ material.link }}" target="_blank">{{ material.name }}</a></td>
+                    <td>{{ material.start_date }}</td>
+                    <td>{{ material.start_time }}</td>
+                    <td>{{ material.end_date }}</td>
+                    <td>{{ material.end_time }}</td>
+                    <td> <a href="{{url_for('edit_material', materialid=material.id, personid=personid)}}"><i class='fas fa-pencil-alt' style='font-size:18px; color:rgb(59, 117, 194);'></i></a> </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <br>&nbsp;&nbsp;
+        <input type="checkbox" onclick="checkAll()" id="parent"  /><span id="label">&nbsp;&nbsp;Select All</span>
+        <br><br>
+        <div class ="row" style="margin-left: 2%;">
+        <medium>    <button type="submit"  class="btn btn-info">Delete Material</button> </medium>
+
+</form>  
+<form action="{{url_for('add_material_single', subject_handler_id = sub_hand_id, personid=personid)}}" >
+    <input type="submit" style="margin-left: 550%;" value="Add Material" name="add" class="btn btn-info">
+</form>
+
+{% endif %}
+
+<script>
+    let class_select = document.getElementById('class_opts')
+    let subject_select = document.getElementById('subject_opts')
+    let p = document.getElementById('personid')
+    p = p.value
+    class_select.onchange = function(){
+        class_id = class_select.value;
+       
+        fetch('/subject/' + p + '/' + class_id).then(function(response) {
+            response.json().then(function(data){
+                let optionHTML = '';
+                for(let sub of data.subjects){
+                    optionHTML += '<option value= "' + sub.id + '">' + sub.subject +  '</option>';
+                }
+                
+                subject_select.innerHTML = optionHTML; 
+                console.table(data)
+            });
+        })
+    }
+</script> 
+
+
+    <script>
+        function checkAll(){
+            var parent = document.getElementById("parent");
+            var label = document.getElementById("label");
+            var input = document.getElementsByTagName("input");
+    
+            if(parent.checked === true){
+                for (var i=0 ; i<input.length ; i++){
+                    if(input[i].type == "checkbox" && input[i].id=="child" && input[i].checked == false) {
+                        input[i].checked = true;
+                    }
+                }
+            }
+    
+            else if(parent.checked === false){
+                for (var i=0 ; i<input.length ; i++){
+                    if(input[i].type == "checkbox" && input[i].id=="child" && input[i].checked == true) {
+                        input[i].checked = false;
+                    }
+                }
+            }
+            
+        }
+    
+        function checkParent() {
+            var parent = document.getElementById("parent");
+            var label = document.getElementById("label");
+            var input = document.getElementsByTagName("input");
+    
+            var tot = 0;
+            for (var i=0 ; i<input.length ; i++){
+                if(input[i].type == "checkbox" && input[i].id=="child" && input[i].checked == true) {
+                    tot = tot+1;
+                }
+                
+            }
+            if(tot == input.length)
+                parent.checked = true;
+            else
+                parent.checked = false;
+        }
+    </script>
+
+{% endblock content %}

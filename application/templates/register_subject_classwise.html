@@ -1,0 +1,95 @@
+{% extends "principal_layout.html" %}
+ 
+{% block content %}
+<div  style="width: 120%; "> 
+    <legend class="border-bottom mb-4"><b>{{ title }}</b></legend>
+      <br /> 
+    <form method="POST" action="" class="form-horizontal">
+        {{ form1.hidden_tag() }}
+            
+            <div class="form-group row" style="font-size: 18px; ">
+                    &nbsp;
+                    {{ form1.class_opts.label(class="form-control-label col-sm-1") }}
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {{ form1.class_opts(class="form-control form-control-sm col-sm-2") }}
+                <div class="form-group col-sm-3" style="margin-left: 100px;">
+                    <input type = "submit" class="btn btn-info btn-small" name = "action" value = "Go">
+                </div>
+            </div>
+    </form> 
+
+{% if form2 %}
+<div  style="width: 100%; "> 
+    <legend class="border-bottom mb-4"><b>Choose Subjects</b></legend>
+    <form method="POST" action="" class="form-horizontal">
+        {{ form2.hidden_tag() }}            
+                
+                <div class="form-group row" style="margin-top: 23px;">
+                    &nbsp;{{ form2.core1.label(class="form-control-label col-sm-3") }}
+                    {{ form2.core1(class="form-control form-control-sm col-sm-4") }}
+                </div>
+
+                <div class="form-group row" style="margin-top: 23px;">
+                    &nbsp;{{ form2.core2.label(class="form-control-label col-sm-3") }}
+                    {{ form2.core2(class="form-control form-control-sm col-sm-4") }}
+                </div>
+
+                <div class="form-group row " style="margin-top: 23px;">
+                    &nbsp;{{ form2.core3.label(class="form-control-label col-sm-3") }}
+                    {{ form2.core3(class="form-control form-control-sm col-sm-4") }}
+                </div>
+
+                <div class="form-group row " style="margin-top: 23px;">
+                    &nbsp;{{ form2.first_lang.label(class="form-control-label col-sm-3") }}
+                    {{ form2.first_lang(class="form-control form-control-sm col-sm-4") }}
+                </div>
+                
+                <div class="form-group row " style="margin-top: 23px;">
+                    &nbsp;{{ form2.second_lang1.label(class="form-control-label col-sm-3") }}
+                    {{ form2.second_lang1(class="form-control form-control-sm col-sm-4") }}
+                </div>
+
+                <div class="form-group row" style="margin-top: 23px;">
+                    &nbsp;{{ form2.second_lang2.label(class="form-control-label col-sm-3") }}
+                    {{ form2.second_lang2(class="form-control form-control-sm col-sm-4") }}
+                </div>
+
+                <div class="form-group row " style="margin-top: 23px;">
+                    &nbsp;{{ form2.second_lang3.label(class="form-control-label col-sm-3") }}
+                    {{ form2.second_lang3(class="form-control form-control-sm col-sm-4") }}
+                </div>
+                
+                {% if (grade < 9) %}
+                    <div class="form-group row " style="margin-top: 23px;">
+                        &nbsp;{{ form2.third_lang1.label(class="form-control-label col-sm-3") }}
+                        {{ form2.third_lang1(class="form-control form-control-sm col-sm-4") }}
+                    </div>
+
+                    <div class="form-group row " style="margin-top: 23px;">
+                        &nbsp;{{ form2.third_lang2.label(class="form-control-label col-sm-3") }}
+                        {{ form2.third_lang2(class="form-control form-control-sm col-sm-4") }}
+                    </div>
+
+                    <div class="form-group row " style="margin-top: 23px;">
+                        &nbsp;{{ form2.third_lang3.label(class="form-control-label col-sm-3") }}
+                        {{ form2.third_lang3(class="form-control form-control-sm col-sm-4") }}
+                    </div>
+                {% endif %}   
+                {% if (grade > 10) %}
+                    <div class="form-group row " style="margin-top: 23px;">
+                        &nbsp;{{ form2.elective1.label(class="form-control-label col-sm-3") }}
+                        {{ form2.elective1(class="form-control form-control-sm col-sm-4") }}
+                    </div>
+                    <div class="form-group row " style="margin-top: 23px;">
+                        &nbsp;{{ form2.elective2.label(class="form-control-label col-sm-3") }}
+                        {{ form2.elective2(class="form-control form-control-sm col-sm-4") }}
+                    </div>
+                {% endif %}
+                <div class="form-group col-sm-3" style="margin-top: 5%; margin-left: 44%;">
+                    <input type = "submit" class="btn btn-info " name = "action" value = "Submit">
+                </div>
+            </div>
+    </form>
+{% endif %}
+{% endblock content %}

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    {% block style %}{% endblock style %}
+
+    {% if title %}
+        <title>Shiksha - {{ title }}</title>
+    {% else %}
+        <title>Shiksha</title>
+    {% endif %}
+</head>
+<body style="background-color: #038999">
+    <main role="main">
+        <div style="margin-left: 25%;"class="col-md-6" align="center">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                {% for category, message in messages %}
+                  <div class="alert alert-{{ category }}">
+                    {{ message }}
+                  </div>
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
+          </div>
+          
+        <div class="container" style="margin-left: 30%; margin-top: 0%; width: 40%; background-color:#f6f6f2 ;padding-top: 1.5%; border-radius: 25px;">    
+            <form method="POST" action="" class="form-horizontal">
+                {{ form.hidden_tag() }}
+                <div style="font-size: 160%; margin-left: 0%; color: #0f5069;"><img  src="/static/logo/new_logo.jpg" alt="logo" style = "width: 25%; height:20%">
+                    &nbsp;&nbsp;
+                    <b>LOGIN TO SHIKSHA</b>  </div>
+                    <legend class="border-bottom" style="margin-left: 24%; width: 53%;"></legend>
+                <fieldset class="form-group">
+                    <br>
+                    <div class="form-group" style="font-size:20px; margin-left: 19%; width: 76%;">
+                        <div style ="margin-left: -3%;">{{ form.username.label(class="form-control-label col-sm-3") }}</div>
+                        {% if form.username.errors %}
+                            {{ form.username(class="form-control form-control-sm is-invalid col-sm-10") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.username.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.username(class="form-control form-control-sm col-sm-10") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group" style="font-size:20px;margin-left: 19%; width: 76%;">
+                        <div style ="margin-left: -3%;">{{ form.password.label(class="form-control-label col-sm-3") }}</div>
+                        {% if form.password.errors %}
+                            {{ form.password(class="form-control form-control-sm is-invalid col-sm-10") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.password.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.password(class="form-control form-control-sm col-sm-10") }}
+                        {% endif %}
+                    </div>
+                    <div>
+                        <div class="form-group" style="font-size:20px;margin-left: 19%; width: 76%;">
+                            <div style ="margin-left: -3%;">{{ form.captcha.label(class="form-control-label col-sm-3") }}</div>
+                            {% if form.captcha.errors %}
+                                {{ form.captcha(class="form-control form-control-sm is-invalid col-sm-10") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.captcha.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.captcha(class="form-control form-control-sm col-sm-10") }}
+                            {% endif %}
+                        </div>
+                        <div style="clear:both"></div>
+                        <div style="margin-left: 37%;">
+                            {{ captcha() }}
+                        </div>
+                    </div>
+                    <br>
+                </fieldset>            
+                <div class="form-group" style="margin-left: 19%; width: 76%;">
+                    {{ form.submit(class="btn btn-info col-sm-10") }}
+                </div>
+                <medium class="text-muted" style="margin-left: 40%;">
+                    <a href="{{ url_for('reset_request') }}" style="color: #2e9eab;">Forgot Password?</a>
+                </medium>
+                <br><br>
+            </form>
+            
+        </div>
+    </main>
+
+
+    
+</body>
+</html>

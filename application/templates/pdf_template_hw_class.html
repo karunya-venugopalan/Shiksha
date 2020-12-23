@@ -1,0 +1,221 @@
+<html>
+
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+        <style>
+            body {
+                background: #fafafa;
+                color: #333333;
+                margin-top: 5rem;
+            }
+            
+            h1, h2, h3, h4, h5, h6 {
+                color: #444444;
+            }
+            
+            .bg-steel {
+                background-color: #5f788a;
+            }
+            
+            .site-header .navbar-nav .nav-link {
+                color: #cbd5db;
+            }
+            
+            .site-header .navbar-nav .nav-link:hover {
+                color: #ffffff;
+            }
+            
+            .site-header .navbar-nav .nav-link.active {
+                font-weight: 500;
+            }
+            
+            .content-section {
+                background: #ffffff;
+                padding: 10px 20px;
+                border: 1px solid #dddddd;
+                border-radius: 3px;
+                margin-bottom: 20px;
+            }
+            
+            .article-title {
+                color: #444444;
+            }
+            
+            a.article-title:hover {
+                color: #428bca;
+                text-decoration: none;
+            }
+            
+            .article-content {
+                white-space: pre-line;
+            }
+            
+            .article-img {
+                height: 65px;
+                width: 65px;
+                margin-right: 16px;
+            }
+            
+            .article-metadata {
+                padding-bottom: 1px;
+                margin-bottom: 4px;
+                border-bottom: 1px solid #e3e3e3
+            }
+            
+            .article-metadata a:hover {
+                color: #333;
+                text-decoration: none;
+            }
+            
+            .article-svg {
+                width: 25px;
+                height: 25px;
+                vertical-align: middle;
+            }
+            
+            .account-img {
+                height: 125px;
+                width: 125px;
+                margin-right: 20px;
+                margin-bottom: 16px;
+            }
+            
+            .account-heading {
+                font-size: 2.5rem;
+            }
+            #content {
+                display: table;
+            }
+
+            #pageFooter {
+                display: table-footer-group;
+            }
+
+            #pageFooter:after {
+                counter-increment: page;
+                content:"Page " counter(page);
+                left: 0; 
+                top: 100%;
+                white-space: nowrap; 
+                z-index: 20;
+                -moz-border-radius: 5px; 
+                -moz-box-shadow: 0px 0px 4px #222;  
+                background-image: -moz-linear-gradient(top, #eeeeee, #cccccc);  
+            }
+
+            .footer {
+                position: fixed;
+                width: 100%;
+                bottom: 0;
+                left: 0;
+                right: 0;
+            }
+        </style>
+      
+        
+        
+        <title>Shiksha</title>
+    
+    </head>
+    <body onload="setPageNumbers()"></body>
+        <header class="site-header">
+          <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+            <div class="container">
+              <a class="navbar-brand mr-4" href="/">SHIKSHA </a>
+              <div class="navbar-nav">
+                <a class="nav-item nav-link" id="date"></a>
+              </div>
+              
+            </div>
+          </nav>
+        </header>
+        <br><br><br><br><br>
+        <h3 style="text-align:center"><b><u>SUBJECT HOMEWORKS REPORT</u></b></align></h3>
+        <h5 style="text-align:center"><b>Class:  </b>{{grade}} - {{section}}&nbsp;&nbsp;&nbsp;&nbsp;<b>Subject: </b>{{subject}}&nbsp;&nbsp;&nbsp;&nbsp;<b>Teacher: </b>{{fteacher}}&nbsp;{{lteacher}}</h5>
+        {% block content %}
+        <div id="content">
+            <div class= "container"><br>
+            <!-- <h2>Courses</h2> -->
+                <!-- CORE 1 -->
+                <div class="panel panel-primary">
+                    <br><br>
+                    {% for data in data_list %}
+                        <h5><b>Homework Name: </b>{{data[0].name}}</h5>
+
+                        <h5>Viewed count: {{data[1]|length}}</h5>
+
+                        {% if data[1]|length != 0 %}
+                        <h5><i>Student list:</i><h5>
+                            {% for i in range(0,data[1]|length) %}
+                                <h6>&nbsp;&nbsp;&nbsp;&nbsp;{{data[1][i].id}}&nbsp;&nbsp; - &nbsp;&nbsp;{{data[1][i].fname}}&nbsp;{{data[1][i].lname}}</h6>
+                            {% endfor %}
+                        {%endif%}
+                        <br>
+                        <h5>Unviewed count: {{data[2]|length}}</h5>
+                        {% if data[2]|length != 0 %}
+                        <h5><i>Student list :</i><h5>
+                            {% for i in range(0,data[2]|length) %}
+                                <h6>&nbsp;&nbsp;&nbsp;&nbsp;{{data[2][i].id}}&nbsp;&nbsp; - &nbsp;&nbsp;{{data[2][i].fname}}&nbsp;{{data[2][i].lname}}</h6>
+                            {% endfor %} 
+                        {%endif%}
+
+                    
+                       <br><br> 
+                    {%endfor%}
+
+
+                </div>
+            </div>
+        </div>    
+        {% endblock content %}
+
+        <p class="footer" style="text-align: center; padding-bottom: 16px" style="font-size: 12px">- <span id="pageNumber"></span> -</p>
+
+    </body>
+
+    <script>
+        n =  new Date();
+        y = n.getFullYear();
+        m = n.getMonth() + 1;
+        d = n.getDate();
+        document.getElementById("date").innerHTML ="Date : " +  d + "/" + m + "/" + y;
+
+
+        function setPageNumbers() {
+          
+          var vars = {};
+          var queryStringsFromUrl = document.location.search.substring(1).split('&');
+          for (var queryString in queryStringsFromUrl) {
+              if (queryStringsFromUrl.hasOwnProperty(queryString)) {
+                  var temp = queryStringsFromUrl[queryString].split('=', 2);
+                  vars[temp[0]] = decodeURI(temp[1]);
+              }
+          }
+  
+          var element = document.getElementById('pageNumber');
+  
+          if (document.cookie.split(';').length === 2) {
+            var section = document.cookie.split(';')[0].split('=')[1];
+  
+            if (vars.section !== section) {
+              document.cookie = 'currentSection=' + vars.section;
+              document.cookie = 'startedAt=' + vars.page;
+            }
+  
+            // startedAt is the page on which a section started
+            var startedAt = parseInt(document.cookie.split(';')[1].split('=')[1]);
+            element.textContent = vars.page - startedAt + 1;
+          } else {
+            document.cookie = 'currentSection=' + vars.section;
+            document.cookie = 'startedAt=' + vars.page;
+            element.textContent = 1;
+          }
+        }
+    </script>
+</html>

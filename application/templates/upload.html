@@ -1,0 +1,36 @@
+{% extends "principal_layout.html" %}
+{% block content %}
+<div  style="width: 120%; "> 
+  <legend class="border-bottom mb-4"><b>{{ title }}</b></legend>
+  <div class = "alert alert-secondary ">  
+    <h5><b>Instructions</b></h5>
+    <p>Given below are the column headings for the file to be uploaded.</p>
+      <div style ="font-size: 15px"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{instructions}}</b></div>
+     <p><br>Please note that the file will not be processed if the given template is not followed. Refer the Instruction manual for more details.</p>
+  </div>
+  <br><br><br><br>
+  
+  <form method="POST" action="" class="form-horizontal" enctype="multipart/form-data" >
+    {{ form.hidden_tag() }}
+    <input type="hidden" id="response" value='{{ r }}'>
+        
+          <div class="form-group row" style = "font-size: 18px; ">
+            {{ form.input_file.label(class="form-control-label col-sm-3") }}
+            {% if form.input_file.errors %}
+              {{ form.input_file(class="form-control form-control-sm is-invalid col-sm-5") }}
+              <div class="invalid-feedback">
+                {% for error in form.input_file.errors %}
+                  <span>{{ error }}</span>
+                {% endfor %}
+              </div>
+            {% else %}
+              {{ form.input_file(class="form-control form-control-sm col-sm-5") }}
+            {% endif %}
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            {{ form.upload(class="btn btn-info") }}
+          </div>
+  </form>
+
+{% endblock content %}

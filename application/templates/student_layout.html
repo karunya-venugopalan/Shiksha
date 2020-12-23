@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='try.css') }}">
+
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    
+    {% block style %}
+    {% endblock style %}
+
+
+    {% if title %}
+        <title>Shiksha - {{ title }}</title>
+    {% else %}
+        <title>Shiksha</title>
+    {% endif %}
+
+
+</head>
+
+<body style="background-color: #f6f6f2">
+  <header>
+      <nav class="navbar navbar-expand-md navbar-dark navbar-inverse fixed-top" style="background-color:#038999; height:7%">
+    
+        <div class="container-fluid">
+          
+          <!-- logo and school name  -->
+          <div class="navbar-header">
+            <ul class="nav navbar-nav">
+              <li> <a href="#">  <img  src="/static/logo/new_logo.jpg" alt="logo" style = "width:40px" > </a> </li>
+              <li>&nbsp;&nbsp;&nbsp; <a href="#" style="color: aliceblue;font-size: 18px; font-weight: 2px;"><b>SHIKSHA</b></a></li>
+            </ul> 
+          </div>
+            
+          <ul class="nav navbar-nav navbar-right" >
+            {% if current_user.is_authenticated %}
+              {% if current_user.role != 'Super User' %}
+                  <li><a style="font-size: 18px; color: aliceblue;" class="nav-item nav-link" href="{{ url_for('welcome') }}">Home&nbsp;</a></li>
+                  <li><a style="font-size: 18px; color: aliceblue;" class="nav-item nav-link" href="{{ url_for('profile') }}">Account&nbsp;</a></li>
+                  <li><a style="font-size: 18px; color: aliceblue;" class="nav-item nav-link" href="{{ url_for('logout') }}">Logout&nbsp;</a></li>
+              {% else %}
+                  <li><a style="font-size: 18px; color: aliceblue;" class="nav-item nav-link" href="{{ url_for('welcome') }}">Home&nbsp;</a> </li>
+                  <li><a style="font-size: 18px; color: aliceblue;" class="nav-item nav-link" href="{{ url_for('logout') }}">Logout&nbsp;</a></li>
+              {% endif %}
+            {% else %}
+                <li><a style="font-size: 18px; color: aliceblue;" class="nav-item nav-link" href="{{ url_for('register') }}">Register&nbsp;</a> </li>
+            {% endif %}
+          </ul>
+        </div>
+      </nav>
+</header>
+
+
+
+<!-- body -->
+<div id="page-container">
+<div id="content-wrap">
+<div class="container-fluid text-center">    
+  <div class="row content">
+    <!-- side navigation -->
+    <div class="col-sm-2 sidenav" style="margin-top: 3%;">
+      <div class=" w3-sidebar w3-bar-block text-left" style="position: relative; width:17%; margin-left: -2%; background-color:#8acbd4">
+        <div id="accordion">
+          <div class="card">
+            <div class="card-header" style="background-color: #8acbd4;">
+              <h5 class="mb-0">
+                <a style="font-size: 18px; color: black;" href="{{ url_for('subject_taken') }}"  class="btn btn-link">Registered Subjects</a>
+              </h5>
+            </div>
+          </div> 
+          
+          <div class="card">
+            <div class="card-header" style="background-color: #8acbd4;">
+              <h5 class="mb-0">
+                <a style="font-size: 18px; color: black;" href="{{ url_for('study_materials') }}"  class="btn btn-link">Study Materials</a>
+              </h5>
+            </div>
+          </div> 
+
+          <div class="card">
+            <div class="card-header" id="headingOne" style="background-color: #8acbd4;">
+              <h5 class="mb-0">
+                <button style="font-size: 18px; color: black;" class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                  Homeworks
+                </button>
+              </h5>
+            </div>
+        
+            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+              <div class="card-body" style="padding-top: 0%; padding-bottom: 0%; padding-right: 0%; background-color: #dedfe0;">
+                <a href=" {{ url_for('active_homework') }} " class=" dropdown-item w3-left-align w3-block w3-button">To Do </a>
+                <a href=" {{ url_for('completed_homework') }} " class=" dropdown-item w3-left-align w3-block w3-button">Completed</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header" id="headingTwo" style="background-color: #8acbd4;">
+              <h5 class="mb-0">
+                <button style="font-size: 18px; color: black;" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  Tests
+                </button>
+              </h5>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+              <div class="card-body" style="padding-top: 0%; padding-bottom: 0%; padding-right: 0%; background-color: #dedfe0;">
+                <a href = " {{ url_for('active_tests') }} " class=" dropdown-item w3-left-align w3-block w3-button">To Do</a>
+                <a href = " {{ url_for('completed_tests') }} " class=" dropdown-item w3-left-align w3-block w3-button">Completed</a>  
+              </div>
+            </div>
+          </div>
+        </div>
+     </div>
+  </div>
+  
+
+    <!-- main content -->
+    <main role="main" class="container" id="main" style="margin-top: 8%; margin-left: 5%; background-color:#ffffff">
+      <br>
+      <div class="row">
+        
+        <div class="col-md-10 text-left">
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                  {{ message }}
+                </div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+          {% block content %}
+          {% endblock %}
+        </div>
+      </div>
+    </main>
+  </div>  
+</div>
+</div>
+
+<footer id="footer" >
+  <h4 style="color:white; margin-left:52%">School Name</h4>
+</footer>
+</div>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+  </body>
+  
+  
+  
+</html>

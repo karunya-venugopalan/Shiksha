@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<style>
+    .btn{
+        width: 10%;
+        
+    }
+</style>
+<br>
+    <div class="content-section border-bottom mb-4" style="width: 100%; margin-left: 26%;margin-top: 5%;">
+        <form method="POST" action="" class="form-horizontal">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4"><b>Pick Role</b></legend>
+
+                <div class="form-group row" style="font-size: 18px;" >
+                    {{ form.role.label(class="form-control-label col-sm-3") }}
+                    {% if form.role.errors %}
+                        {{ form.role(class="form-control form-control-sm is-invalid col-sm-5") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.role.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.role(class="form-control form-control-sm col-sm-5") }}
+                    {% endif %}
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {{ form.submit(class="btn btn-info btn-sm") }}
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+{% endblock content %}

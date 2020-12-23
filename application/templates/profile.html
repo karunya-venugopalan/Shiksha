@@ -1,0 +1,84 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="content-section container" style="width: 160%;">
+        <form method="POST" action="" class = "form-horizontal">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4"><b>Profile</b></legend>
+                <div class="form-group row">
+                    {{ form.first_name.label(class="form-control-label col-sm-4 ") }}
+                    {% if form.first_name.errors %}
+                        {{ form.first_name(class="form-control form-control-sm is-invalid col-sm-5") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.first_name.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.first_name(class="form-control form-control-sm col-sm-5") }}
+                    {% endif %}
+                </div>
+
+                <div class="form-group row">
+                    {{ form.last_name.label(class="form-control-label col-sm-4") }}
+                    {% if form.last_name.errors %}
+                        {{ form.last_name(class="form-control form-control-sm is-invalid col-sm-5") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.last_name.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.last_name(class="form-control form-control-sm col-sm-5") }}
+                    {% endif %}
+                </div>
+
+                <div class="form-group row">
+                    {{ form.gender.label(class="form-control-label col-sm-4") }}
+                    {{ form.gender(class="form-control form-control-sm col-sm-5") }}
+                </div>
+
+                <div class="form-group row">
+                    {{ form.dob.label(class="form-control-label col-sm-4") }}
+                    {% if form.dob.errors %}
+                        {{ form.dob(class="form-control form-control-sm is-invalid col-sm-5") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.dob.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.dob(class="form-control form-control-sm col-sm-5") }}
+                    {% endif %}
+                </div>
+                
+                <div class="form-group row">
+                    {{ form.phone_number.label(class="form-control-label col-sm-4") }}
+                    {% if form.phone_number.errors %}
+                        {{ form.phone_number(class="form-control form-control-sm is-invalid col-sm-5") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.phone_number.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.phone_number(class="form-control form-control-sm col-sm-5") }}
+                    {% endif %}
+                </div>
+
+                <div class="form-group row">
+                    <div class="form-control-label col-sm-4">Username:</div>
+                    <div class="form-control form-control-sm col-sm-5">{{ user.email }}</div>
+                </div>
+            </fieldset>
+            <div class="form-group" style="margin-left: 45%;">
+                {{ form.submit(class="btn btn-info") }}
+            </div>
+        </form>
+    </div>
+    <div class="border-top pt-3">
+        <medium class="text-muted">
+            <a class="ml-2" href="{{ url_for('change_password') }}">Change Password? </a>
+        </medium>
+    </div>
+{% endblock content %}

@@ -1,0 +1,104 @@
+{% extends "principal_layout.html" %}
+{% block style %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
+{% endblock style %} 
+{% block content %}
+<div  style="width: 120%; "> 
+    <legend class="border-bottom mb-4"><b>{{ title }}</b></legend>
+    <form method="POST" action="" class="form-horizontal">
+        <br>
+        {{ form.hidden_tag() }}
+            <div class="form-group row">
+                    &nbsp;{{ form.class_opts.label(class="form-control-label col-sm-1") }}
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    {{ form.class_opts(class="form-control form-control-sm col-sm-2") }}
+                <div class="form-group col-sm-3" style="margin-left: 100px;">
+                    <input type = "submit" class="btn btn-info " name = "action" value = "Go">
+                </div>
+            </div>
+    </form>
+{% if class_subjects %}
+<form action="{{ url_for('delete_class_subject', class_id = classid) }}" method="POST">
+        <br />    
+        <table class="table table-bordered  table-hover ">
+  
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Subject Description</th>
+                    <th>Subject Code</th>
+                    <th>Subject Name</th>
+                <tr>
+            </thead>
+            <tbody>
+                {% for subject in class_subjects %}
+                  <tr>
+                    <td style="text-align: center;">
+                      <input type="checkbox" onclick="checkParent()" name="mycheckbox" value={{ subject[0] }} id="child" />
+                    </td> 
+                    <td>{{ subject[2] }}</td>
+                    <td>{{ subject[0] }}</td>
+                    <td>{{ subject[1] }}</td>                                    
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <br>&nbsp;&nbsp;
+        <input type="checkbox" onclick="checkAll()" id="parent"  /><span id="label">&nbsp;&nbsp;Select All</span>
+        <br><br>
+        <div class ="row" style="margin-left: 0.5%;">
+            <button type="submit"  class="btn btn-info">Delete Subject</button>            
+    </form>  
+    <form action="{{ url_for('add_class_subject', class_id = classid) }}" >
+        <input type="submit" style="margin-left: 820%;" value="Add Subject" name="add" class="btn btn-info">
+    </form>
+   
+  
+    <script>
+      function checkAll(){
+          var parent = document.getElementById("parent");
+          var label = document.getElementById("label");
+          var input = document.getElementsByTagName("input");
+  
+          if(parent.checked === true){
+              for (var i=0 ; i<input.length ; i++){
+                  if(input[i].type == "checkbox" && input[i].id=="child" && input[i].checked == false) {
+                      input[i].checked = true;
+                  }
+              }
+          }
+  
+          else if(parent.checked === false){
+              for (var i=0 ; i<input.length ; i++){
+                  if(input[i].type == "checkbox" && input[i].id=="child" && input[i].checked == true) {
+                      input[i].checked = false;
+                  }
+              }
+          }
+          
+      }
+  
+      function checkParent() {
+          var parent = document.getElementById("parent");
+          var label = document.getElementById("label");
+          var input = document.getElementsByTagName("input");
+  
+          var tot = 0;
+          for (var i=0 ; i<input.length ; i++){
+              if(input[i].type == "checkbox" && input[i].id=="child" && input[i].checked == true) {
+                  tot = tot+1;
+              }
+              
+          }
+          if(tot == input.length)
+              parent.checked = true;
+          else
+              parent.checked = false;
+      }
+    </script>
+  {% endif %}
+  {% endblock content %}

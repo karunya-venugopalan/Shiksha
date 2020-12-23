@@ -1,0 +1,38 @@
+{% extends "teacher_layout.html" %}
+{% block content %}
+<div  style="width: 120%; "> 
+    <legend class="border-bottom mb-4"><b>{{ title }}</b></legend>
+        <form method="POST" action="" class = "form-horizontal">
+            {{ form.hidden_tag() }}
+            <div class="form-group col-sm-10 row" style="margin-top: 23px;">
+                <div class="form-control-label col-sm-4">Class:</div>
+                <div class="form-control form-control-sm col-sm-5">{{ subhandler.class_sub.grade }} - {{ subhandler.class_sub.section }}</div>
+            </div>
+
+            <div class="form-group col-sm-10 row" style="margin-top: 23px;">
+                <div class="form-control-label col-sm-4">Subject:</div>
+                <div class="form-control form-control-sm col-sm-5">{{ subhandler.class_subjects.name }}</div>
+            </div>
+
+            <div class="form-group row col-sm-10">
+                {{ form.link.label(class="form-control-label col-sm-4 ") }}
+                {% if form.link.errors %}
+                    {{ form.link(class="form-control form-control-sm is-invalid col-sm-5") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.link.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.link(class="form-control form-control-sm col-sm-5") }}
+                {% endif %}
+            </div>
+            <br>
+            <div class="form-group" style="margin-left: 45%; margin-top: 2%;">
+                {{ form.submit(class="btn btn-info") }}
+            </div>
+            
+            <input style="margin-left: 45.5%;" type="button" class="btn btn-info" value="BACK" onclick="history.back(-1)" />
+            
+         </form>
+{% endblock content %}

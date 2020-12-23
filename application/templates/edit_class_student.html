@@ -1,0 +1,55 @@
+{% extends "teacher_layout.html" %}
+{% block content %}
+<div style="width: 120%; ">  
+    <legend class="border-bottom mb-4"><b>{{ title }}</b></legend>
+        <form method="POST" action="" class = "form-horizontal">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <div class="form-group row">
+                    <div class="form-control-label col-sm-4">First Name:</div>
+                    <div class="form-control form-control-sm col-sm-5">{{ student.first_name }}</div>
+                </div>
+                <div class="form-group row">
+                    <div class="form-control-label col-sm-4">Last Name:</div>
+                    <div class="form-control form-control-sm col-sm-5">{{ student.last_name }}</div>
+                </div>
+                
+                <div class="form-group row">
+                    {{ form.email.label(class="form-control-label col-sm-4") }}
+                    {% if form.email.errors %}
+                        {{ form.email(class="form-control form-control-sm is-invalid col-sm-5") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.email.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.email(class="form-control form-control-sm col-sm-5") }}
+                    {% endif %}
+                </div>
+
+                <div class="form-group row">
+                    {{ form.second_lang.label(class="form-control-label col-sm-4 ") }}
+                    {{ form.second_lang(class="form-control form-control-sm col-sm-5") }}
+                </div>
+                 {% if grade < 9 %}
+                <div class="form-group row">
+                    {{ form.third_lang.label(class="form-control-label col-sm-4 ") }}
+                    {{ form.third_lang(class="form-control form-control-sm col-sm-5") }}
+                </div>
+                {% endif %}
+
+                {% if grade > 10 %}
+                <div class="form-group row">
+                    {{ form.elective.label(class="form-control-label col-sm-4 ") }}
+                    {{ form.elective(class="form-control form-control-sm col-sm-5") }}
+                </div>
+                {% endif %}
+
+            </fieldset>
+            <div class="form-group" style="margin-left: 45%;">
+                {{ form.submit(class="btn btn-info") }}
+            </div>
+            <input style="margin-left: 45.5%;" type="button" class="btn btn-info" value="BACK" onclick="history.back(-1)" />
+        </form>
+{% endblock content %}

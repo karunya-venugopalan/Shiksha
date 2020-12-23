@@ -1,0 +1,49 @@
+{% extends "student_layout.html" %}
+
+{% block style %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+{% endblock style %} 
+
+{% block content %}
+
+<div  style="width: 120%; "> 
+    <legend class="border-bottom mb-4"><b>Subject Details</b></legend>  
+    <table class="table table-bordered  table-hover css-serial" style=" width: 100%;">
+        <thead>
+                <tr>
+                  <th>S.No.</th>
+                  <th>Code</th>
+                  <th>Name</th>
+                  <th>Description</th>
+                  <th>Teacher</th>
+                  <th>Email ID</th>
+                  <th>Phone Number</th>
+                  <th>Class Link</th>
+                <tr>
+        </thead>
+        <tbody>
+              {% for subject in subjects_list %}
+                <tr>
+                    <td></td>
+                    <td>{{ subject.class_subjects.code }}</td>
+                    <td>{{ subject.class_subjects.name }}</td>
+                    <td>{{ subject.class_subjects.description }}</td>
+                    {% if subject.teacher_id: %}
+                        <td>{{ subject.teach_sub.first_name }} {{ subject.teach_sub.last_name }}</td>
+                        <td>{{ subject.teach_sub.teacher_user.email }}</td> 
+                        <td>{{ subject.teach_sub.phone }}</td>
+                    {% else %}
+                        <td> -  </td>
+                        <td> -  </td>
+                        <td> -  </td>
+                    {% endif %}
+                    <!-- <td><a href="#"  style="color: cornflowerblue;"> Join Class</a></td> -->
+                    <td><a href="{{ subject.online_class_link  }} " target = "_blank" style="color: cornflowerblue;"> Join Class</a></td>
+                </tr>
+                {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock content %}

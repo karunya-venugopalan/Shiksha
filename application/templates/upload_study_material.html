@@ -1,0 +1,85 @@
+{% extends "teacher_layout.html" %}
+
+{% block style %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>  -->
+
+{% endblock style %} 
+{% block content %}
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<div style="width: 120%; ">  
+    <legend class="border-bottom mb-4"><b>Upload Study Material</b></legend>
+        <form method="POST" action="" class="form-horizontal">
+            {{ form.hidden_tag() }}
+            <input type="hidden" name="personid" id="personid" value='{{ personid }}'>
+
+                <div class="form-group row">
+                    {{ form.class_opts.label(class="form-control-label col-sm-3") }}
+                    {{ form.class_opts(class="form-control form-control-sm col-sm-5") }}
+                </div>
+
+                <div class="form-group row">
+                    {{ form.subject_opts.label(class="form-control-label col-sm-3") }}
+                    {{ form.subject_opts(class="form-control form-control-sm col-sm-5") }}
+                    
+                </div>
+
+                <div class="form-group row">
+                    {{ form.name.label(class="form-control-label col-sm-3 ") }}
+                    {% if form.name.errors %}
+                        {{ form.name(class="form-control form-control-sm is-invalid col-sm-5") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.name.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.name(class="form-control form-control-sm col-sm-5") }}
+                    {% endif %}
+                </div>
+
+                <div class="form-group row">
+                    {{ form.link.label(class="form-control-label col-sm-3 ") }}
+                    {% if form.link.errors %}
+                        {{ form.link(class="form-control form-control-sm is-invalid col-sm-5") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.link.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.link(class="form-control form-control-sm col-sm-5") }}
+                    {% endif %}
+                </div>
+
+                
+
+            <div class="form-group">
+                <input style="margin-left: 45%;" type = "submit"  class="btn btn-info">
+            </div>
+        </form>
+    
+
+    <script>
+        let class_select = document.getElementById('class_opts')
+        let subject_select = document.getElementById('subject_opts')
+        let p = document.getElementById('personid')
+        p = p.value
+        class_select.onchange = function(){
+            class_id = class_select.value;
+           
+            fetch('/subjects/'+ class_id + '/' + p).then(function(response) {
+                response.json().then(function(data){
+                    let optionHTML = '';
+                    for(let sub of data.subjects){
+                        optionHTML += '<option value= "' + sub.id + '">' + sub.subject +  '</option>';
+                    }
+                    
+                    subject_select.innerHTML = optionHTML; 
+                    console.table(data)
+                });
+            })
+        }
+    </script> 
+{% endblock content %}

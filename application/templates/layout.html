@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    {% block style %}{% endblock style %}
+
+    {% if title %}
+        <title>Shiksha - {{ title }}</title>
+    {% else %}
+        <title>Shiksha</title>
+    {% endif %}
+
+    <style> 
+      #footer { 
+          position: fixed; 
+          padding: 0px 0px 0px 10px; 
+          bottom: 0; 
+          width: 100%;  
+          height: 5%; 
+          background: #038999; 
+      } 
+  </style>
+</head>
+<body style="background-color: #f6f6f2">
+  <header>
+    <nav class="navbar navbar-expand-md navbar-dark navbar-inverse fixed-top" style="background-color:#038999; height:7%">
+  
+      <div class="container-fluid">
+        
+        <!-- logo and school name  -->
+        <div class="navbar-header">
+          <ul class="nav navbar-nav">
+            <li> <a href="#">  <img  src="/static/logo/new_logo.jpg" alt="logo" style = "width:40px" > </a> </li>
+            <li> &nbsp;&nbsp;&nbsp; <a href="#" style="color: aliceblue; font-size: 18px; font-weight: 2px;"><b>SHIKSHA</b></a> </li>
+          </ul> 
+        </div>
+          
+        <ul class="nav navbar-nav navbar-right" >
+          {% if current_user.is_authenticated %}
+            {% if current_user.role != 'Super User' %}
+                <li><a style="font-size: 18px; color: aliceblue;" class="nav-item nav-link" href="{{ url_for('welcome') }}">Home&nbsp;&nbsp; </a></li>
+                <li><a style="font-size: 18px; color: aliceblue;" class="nav-item nav-link" href="{{ url_for('profile') }}">Account&nbsp;&nbsp; </a></li>
+                <li><a style="font-size: 18px; color: aliceblue;" class="nav-item nav-link" href="{{ url_for('logout') }}">Logout&nbsp;&nbsp; </a></li>
+            {% else %}
+                <li><a style="font-size: 18px; color: aliceblue;" class="nav-item nav-link" href="{{ url_for('welcome') }}">Home&nbsp;&nbsp; </a> </li>
+                <li><a style="font-size: 18px; color: aliceblue;" class="nav-item nav-link" href="{{ url_for('logout') }}">Logout&nbsp;&nbsp; </a></li>
+            {% endif %}
+          {% else %}
+              <li><a style="font-size: 18px; color: aliceblue;" class="nav-item nav-link" href="{{ url_for('register') }}">Register&nbsp;&nbsp; </a> </li>
+          {% endif %}
+        </ul>
+      </div>
+    </nav>
+    </header>
+
+
+    <main role="main" class="container">
+      <div class="row">
+        <div class="col-md-8">
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                  {{ message }}
+                </div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+          {% block content %}{% endblock %}
+        </div>
+      </div>
+    </main>
+
+
+    <div id="footer">
+      <h4 style="color:aliceblue; margin-left:45%">School Name</h4>
+    </div>
+
+    
+</body>
+</html>

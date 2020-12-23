@@ -1,0 +1,88 @@
+{% extends "super_user_layout.html" %}
+{% block content %}
+    <div  style="width: 120%; margin-left: 0%;">
+        <form method="POST" action="" class = "form-horizontal">
+            {{ form.hidden_tag() }}
+                <legend class="border-bottom mb-4"><b>{{ title }}</b></legend>
+                <div class="form-group row">
+                    {{ form.first_name.label(class="form-control-label col-sm-4 ") }}
+                    {% if form.first_name.errors %}
+                        {{ form.first_name(class="form-control form-control-sm is-invalid col-sm-5") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.first_name.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.first_name(class="form-control form-control-sm col-sm-5") }}
+                    {% endif %}
+                </div>
+
+                <div class="form-group row">
+                    {{ form.last_name.label(class="form-control-label col-sm-4") }}
+                    {% if form.last_name.errors %}
+                        {{ form.last_name(class="form-control form-control-sm is-invalid col-sm-5") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.last_name.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.last_name(class="form-control form-control-sm col-sm-5") }}
+                    {% endif %}
+                </div>
+
+                <div class="form-group row">
+                    {{ form.phone_number.label(class="form-control-label col-sm-4") }}
+                    {% if form.phone_number.errors %}
+                        {{ form.phone_number(class="form-control form-control-sm is-invalid col-sm-5") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.phone_number.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.phone_number(class="form-control form-control-sm col-sm-5") }}
+                    {% endif %}
+                </div>
+                
+
+                <div class="form-group row">
+                    {{ form.dob.label(class="form-control-label col-sm-4") }}
+                    {% if form.dob.errors %}
+                        {{ form.dob(class="form-control form-control-sm is-invalid col-sm-5") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.dob.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.dob(class="form-control form-control-sm col-sm-5") }}
+                    {% endif %}
+                </div>
+
+                <div class="form-group row">
+                    {{ form.gender.label(class="form-control-label col-sm-4") }}
+                    {{ form.gender(class="form-control form-control-sm col-sm-5") }}
+                </div>
+
+                <div class="form-group row">
+                    {{ form.username.label(class="form-control-label col-sm-4") }}
+                    {% if form.username.errors %}
+                        {{ form.username(class="form-control form-control-sm is-invalid col-sm-5") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.username.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.username(class="form-control form-control-sm col-sm-5") }}
+                    {% endif %}
+                </div>
+            <div class="form-group" style="margin-left: 45%;">
+                {{ form.submit(class="btn btn-info") }}
+            </div>
+            <input style="margin-left: 45.7%;" type="button" class="btn btn-info" value="BACK" onclick="history.back(-1)" />
+        </form>
+    </div>
+{% endblock content %}

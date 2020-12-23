@@ -1,0 +1,22 @@
+{% extends "teacher_layout.html" %}
+{% block content %}
+<div style="width: 120%; ">  
+    <legend class="border-bottom mb-4"><b>{{ title }}</b></legend>
+        <form method="POST" action="" target = "_blank" class = "form-horizontal">
+            {{ form.hidden_tag() }}
+                
+                <div class="form-group row" style="font-size: 18px; ">
+                    <div class="form-control-label col-sm-2">Class:</div>
+                    <div class="form-control form-control-sm col-sm-3">{{ class_ }}</div>
+                </div>
+
+                <div class="form-group row" style ="font-size: 18px; " >
+                    {{ form.subject_opts.label(class="form-control-label col-sm-2") }}
+                    {{ form.subject_opts(class="form-control form-control-sm col-sm-3") }}
+                </div>
+                <br>
+                <div class="form-group col-sm-3" style="margin-left: 45%;">
+                    <input type = "submit" class="btn btn-info" name = "action" value = "Submit">
+                </div>
+    </form>
+{% endblock content %}

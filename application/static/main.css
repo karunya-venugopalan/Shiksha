@@ -1,0 +1,36 @@
+body {
+  background: #f6f6f2;
+  color: #333333;
+  margin-top: 5rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.row.content 
+{
+    height: 500px;
+}  
+
+.site-header .navbar-nav .nav-link {
+  color: darkkhaki;
+}
+
+.site-header .navbar-nav .nav-link:hover {
+  color: deeppink;
+}
+
+.site-header .navbar-nav .nav-link.active {
+  font-weight: 1200;
+}
+
+.content-section {
+  background: #ffffff;
+  padding: 10px 20px;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+
+.container{
+  align-content: center;
+}
+

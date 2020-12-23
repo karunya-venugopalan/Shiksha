@@ -1,0 +1,104 @@
+{% extends "teacher_layout.html" %}
+{% block content %}
+<div style="width: 120%; ">  
+    <legend class="border-bottom mb-4"><b>{{ title }}</b></legend>
+<form method="POST" action="" class="form-horizontal">
+        {{ form.hidden_tag() }}
+        <input type="hidden" name="personid" id="personid" value='{{ personid }}'>
+        
+            <div class="form-group row" style = "font-size: 18px; ">
+                {{ form.class_opts.label(class="form-control-label col-sm-2") }}
+                {{ form.class_opts(class="form-control form-control-sm col-sm-3") }}
+            </div>
+            <div class="form-group row" style="font-size: 18px; ">
+                {{ form.subject_opts.label(class="form-control-label col-sm-2") }}
+                {{ form.subject_opts(class="form-control form-control-sm col-sm-3") }}
+            </div>
+            <div class="form-group row" style="font-size: 18px; ">
+                {{ form.name_opts.label(class="form-control-label col-sm-2") }}
+                {{ form.name_opts(class="form-control form-control-sm col-sm-3") }}
+            </div>
+                <br>
+                <div class="form-group col-sm-3">
+                    <input style="margin-left: 200%;" type = "submit" class="btn btn-info" name = "action" value = "Submit">
+                </div>
+        
+    </form>
+
+{% if submitted %}
+
+      <br />    
+      <table class="table table-bordered  table-hover css-serial" >
+
+          <thead>
+              <tr>
+                  <th>S.No.</th>
+                  <th>Name</th>
+                  <th>Email ID</th>
+                  <th>Phone Number</th>
+                  <th>Submission Link</th>
+              <tr>
+          </thead>
+          <tbody>
+              {% for sub in submitted %}
+                <tr>
+                  <td> </td>
+                  <td>{{ sub.submit_attendance.first_name }} {{ sub.submit_attendance.last_name }}</td>
+                  <td>{{ sub.submit_attendance.student_user.email }}</td>
+                  <td>{{ sub.submit_attendance.phone }}</td>
+                  {% if sub.submitted %}
+                    <td><a href="{{ sub.submitted }}" target="_blank">{{ sub.submitted }}</a></td>
+                  {% else %}
+                  <td>-</td>
+                  {% endif %}
+                </tr>
+              {% endfor %}
+          </tbody>
+      </table>
+
+{% endif %}
+<script>
+    let class_select = document.getElementById('class_opts')
+    let subject_select = document.getElementById('subject_opts')
+    let p = document.getElementById('personid')
+    p = p.value
+
+    class_select.onchange = function(){
+        class_id = class_select.value;
+       
+        fetch('/subject/' + p + '/' + class_id).then(function(response) {
+            response.json().then(function(data){
+                let optionHTML = '';
+                for(let sub of data.subjects){
+                    optionHTML += '<option value= "' + sub.id + '">' + sub.subject +  '</option>';
+                }
+                
+                subject_select.innerHTML = optionHTML; 
+                console.table(data)
+            });
+        })
+    }
+
+    let class_select1 = document.getElementById('class_opts')
+    let subject_select1 = document.getElementById('subject_opts')
+    let name_select = document.getElementById('name_opts')
+    
+    subject_select1.onchange = function(){
+        class_id = class_select1.value;
+        subject_code = subject_select1.value;
+        mat_type = 'Homework'
+        fetch('/matname/' + p + '/' + class_id + '/' + subject_code + '/' + mat_type).then(function(response) {
+            response.json().then(function(data){
+                let optionHTML = '';
+                for(let mat of data.materials){
+                    optionHTML += '<option value= "' + mat.id + '">' + mat.name +  '</option>';
+                }
+                
+                name_select.innerHTML = optionHTML; 
+                console.table(data)
+            });
+        })
+    }
+</script> 
+
+{% endblock content %}

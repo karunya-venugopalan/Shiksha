@@ -1,0 +1,42 @@
+{% extends "super_user_layout.html" %}
+{% block content %}
+<div  style="width: 1130px; margin-right: 3000px;">
+    <form method="POST" action="" class="form-horizontal">
+        {{ form.hidden_tag() }}
+            <legend class="border-bottom mb-4"><b>Sign In</b></legend>
+                <div class="form-group row" style="margin-top: 1%;">
+                    {{ form.role_opts.label(class="form-control-label col-sm-3") }}
+                    {{ form.role_opts(class="form-control form-control-sm col-sm-5") }}
+                </div>
+                <div class="form-group row" style="margin-top: 23px;">
+                    {{ form.person_opts.label(class="form-control-label col-sm-3") }}
+                    {{ form.person_opts(class="form-control form-control-sm col-sm-5") }}
+                </div>
+                <div class="form-group col-sm-2" style="margin-top: 2%; margin-left: 45%;">
+                    {{ form.submit(class="btn btn-info") }}
+                </div>
+    </form>
+</div>
+<script>
+    let role_select = document.getElementById('role_opts')
+    let person_select = document.getElementById('person_opts')
+
+    role_select.onchange = function(){
+        role = role_select.value;
+       
+        fetch('/select_people/'+role).then(function(response) {
+            response.json().then(function(data){
+                let optionHTML = '';
+                for(let i of data.people){
+                    optionHTML += '<option value= "' + i.id + '">' + i.username +  '</option>';
+                }
+                
+                person_select.innerHTML = optionHTML; 
+                console.table(data)
+            });
+        })
+    }
+
+</script>
+
+{% endblock content %}

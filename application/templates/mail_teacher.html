@@ -1,0 +1,27 @@
+{% extends "principal_layout.html" %}
+
+{% block content %}
+<div  style="width: 120%; "> 
+    <legend class="border-bottom mb-4"><b>{{ title }}</b></legend>
+      <br /> 
+    <form method="POST" action="" class="form-horizontal">
+        {{ form.hidden_tag() }}
+            
+        <div class="form-group row">
+            <div class="form-control-label col-sm-3" style="height: 100px;">{{ form.message.label}}</div>
+            {% if form.message.errors %}
+                {{ form.message(class="form-control form-control-sm is-invalid col-sm-5") }}
+                <div class="invalid-feedback">
+                    {% for error in form.message.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ form.message(class="form-control form-control-sm col-sm-5") }}
+            {% endif %}
+        </div>
+        <div class="form-group">
+            <input style="margin-left: 45%;" type = "submit"  class="btn btn-info">
+        </div>
+    </form> 
+{% endblock content %}

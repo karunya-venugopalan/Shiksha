@@ -1,0 +1,88 @@
+{% extends "student_layout.html" %}
+{% block content %}
+
+<div  style="width: 120%; "> 
+    <legend class="border-bottom mb-4"><b>{{ title }}</b></legend>
+
+    <form method="POST" action="" class="form-horizontal">
+        {{ form.hidden_tag() }}
+            
+            <div class="form-group row" style = "font-size: 18px;">
+                    {{ form.subject_opts.label(class="form-control-label col-sm-2") }}                
+                    {{ form.subject_opts(class="form-control form-control-sm col-sm-3") }} 
+                <div class="form-group" style="margin-left: 5%;">
+                    <input type = "submit" class="btn btn-info" name = "action" value = "Go">     
+                </div>
+            </div>
+    </form>
+
+
+
+<br><br>
+{% if material_list != 0 and material_list != 1 %} 
+<legend class="border-bottom mb-4"><b>Material List</b></legend>
+    <br>
+     <table class="table table-bordered  table-hover css-serial" >
+        <thead>
+            <tr>
+                <th>S.No.</th>
+                <th>Code</th>
+                <th>Subject</th>
+                <th>Start Date</th>
+                <th>Start Time</th>
+                <th>End Date</th>
+                <th>End Time</th>
+                <th>Link</th>
+                <th>Upload</th>
+            <tr>
+        </thead>
+        <tbody>
+            {% for i in range(0,material_list|length) %}
+              <tr>
+                <td></td> 
+                <td>{{ material_list[i].mat.subject_code }}</td>
+                <td>{{ material_list[i].mat.class_subjects.name }}</td>
+                <td>{{ material_list[i].start_date }}</td>
+                <td>{{ material_list[i].start_time }}</td>
+                <td>{{ material_list[i].end_date }}</td>
+                <td>{{ material_list[i].end_time }}</td>
+                {% if report_gen_list[i] == 0 %}
+                    <td><a href=" material_list[i].link "  target = "_blank" style="color: cornflowerblue;"> {{ material_list[i].name }}</a></td>
+                {% else %}
+                    <td><p style="color: black;"> {{ material_list[i].name }}</p></td>
+                {% endif %}
+
+
+
+
+
+                {% if attendance_list[i] %}
+                    <td style = "color: red;"><b>Submitted</b></td>
+                {% else %}
+                    {% if report_gen_list[i] == -1 %}
+                        <td style = "color: red;"><b>Not available</b></td>
+                    {% else %}
+                    <td><a href="{{ url_for( 'upload_homeworks', material_id = material_list[i].id ) }}" class = "btn btn-outline-info" style="color: black;"> Upload Link</a></td>
+                    {% endif %}
+                {% endif %}
+
+
+
+
+
+
+                
+                </tr>
+            {% endfor %}
+        </tbody>
+     </table>
+
+{% else %}
+{% if material_list == 1 %}
+<br>
+    <h6 class = "alert alert-info">  Hurray! No homeworks!!  </h6>
+    <br>
+
+{% endif %}
+{% endif %}
+{% endblock content %}

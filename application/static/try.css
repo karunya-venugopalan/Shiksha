@@ -1,0 +1,85 @@
+/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+.row.content 
+{
+    height: auto
+}    
+ 
+
+.sidenav
+{
+  margin-top: 70px;
+}
+
+
+body {
+  background: #f6f6f2;
+  color: #333333;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.content-section 
+{
+  background: #ffffff;
+  padding: 10px 20px;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  margin-bottom: 20px;
+ 
+}
+
+.container
+{
+  background: #ffffff;
+  padding: 10px 20px;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  margin-left: 300px;
+}
+
+
+
+
+
+/* Automatic Serial Number Row */
+.css-serial {
+  counter-reset: serial-number; /* Set the serial number counter to 0 */
+ }
+.css-serial td:first-child:before {
+  counter-increment: serial-number; /* Increment the serial number counter */
+  content: counter(serial-number); /* Display the counter */
+}
+
+
+/* On small screens, set height to 'auto' for sidenav and grid */
+@media screen and (max-width: 767px) 
+{
+    .sidenav 
+    {
+    height: auto;
+    padding: 15px;
+    }
+    .row.content 
+    {
+        height:auto;
+    } 
+}
+
+
+#page-container {
+  position: relative;
+  min-height: 100vh;
+}
+
+#content-wrap {
+  padding-bottom: 10rem;    /* Footer height */
+}
+
+#footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: #038999;
+  height: 3rem;            /* Footer height */
+}

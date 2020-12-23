@@ -1,0 +1,101 @@
+{% extends "teacher_layout.html" %}
+
+{% block content %}
+<style>
+    
+</style>
+<form action="{{ url_for('delete_online_class', personid=personid)}}" method="POST">
+    
+  <div  style="width: 120%; "> 
+    <legend class="border-bottom mb-4"><b>Online Class Details</b></legend>
+      <br /> 
+        {% if subjecthandle%}   
+            <table class="table table-bordered  table-hover"style=" margin-left: auto; margin-right: auto;"  >
+                <thead>
+                    <tr>
+                        <th style="width: 1%; text-align: center;" ></th>
+                        <th style="width: 10%;" >Class</th>
+                        <th style="width: 10%;" >Section</th>
+                        <th style="width: 8%;" >Subject</th>
+                        <th style="width: 15%;" >Link</th>
+                        <th style="width: 5%;" >Edit</th>
+                    <tr>
+                </thead>
+                <tbody>
+                    {% for sub in subjecthandle %}
+                        <tr>
+                        <td style="text-align: center;">
+                            <input type="checkbox" onclick="checkParent()" name="mycheckbox" value={{ sub.id }} id="child" />
+                        </td> 
+                        <td>{{ sub.class_sub.grade }}</td>
+                        <td>{{ sub.class_sub.section }}</td>
+                        <td>{{ sub.class_subjects.name }}</td>
+                        {% if sub.online_class_link %}
+                            <td><a href="{{ sub.online_class_link }}" target="_blank">{{ sub.online_class_link }}</a></td>
+                        {% else %}
+                            <td>-</td>
+                        {% endif %}
+                        <td> <a href="{{ url_for('edit_online_class', sub_hand_id=sub.id, personid=personid) }}"><i class='fas fa-pencil-alt' style='font-size:18px; color:rgb(59, 117, 194);'></i></a> </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+      <br>&nbsp;&nbsp;
+      <input type="checkbox" onclick="checkAll()" id="parent"  /><span id="label">&nbsp;&nbsp;Select All</span>
+      <br><br>
+      <div class ="row" style="margin-left: 1%;">
+      <button type="submit"  class="btn btn-info">Delete</button>
+      <br/>
+    </form>  
+
+    
+</div>
+
+</div>    
+
+  <script>
+    function checkAll(){
+        var parent = document.getElementById("parent");
+        var label = document.getElementById("label");
+        var input = document.getElementsByTagName("input");
+
+        if(parent.checked === true){
+            for (var i=0 ; i<input.length ; i++){
+                if(input[i].type == "checkbox" && input[i].id=="child" && input[i].checked == false) {
+                    input[i].checked = true;
+                }
+            }
+        }
+
+        else if(parent.checked === false){
+            for (var i=0 ; i<input.length ; i++){
+                if(input[i].type == "checkbox" && input[i].id=="child" && input[i].checked == true) {
+                    input[i].checked = false;
+                }
+            }
+        }
+        
+    }
+
+    function checkParent() {
+        var parent = document.getElementById("parent");
+        var label = document.getElementById("label");
+        var input = document.getElementsByTagName("input");
+
+        var tot = 0;
+        for (var i=0 ; i<input.length ; i++){
+            if(input[i].type == "checkbox" && input[i].id=="child" && input[i].checked == true) {
+                tot = tot+1;
+            }
+            
+        }
+        if(tot == input.length)
+            parent.checked = true;
+        else
+            parent.checked = false;
+    }
+  </script>
+
+
+{% endblock content %}

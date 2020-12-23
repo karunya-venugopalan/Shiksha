@@ -1,0 +1,26 @@
+{% extends "principal_layout.html" %}
+{% block content %}
+<div  style="width: 120%; "> 
+    <legend class="border-bottom mb-4"><b>{{ title }}</b></legend>
+    <form method="POST" action="" class="form-horizontal">
+        {{ form.hidden_tag() }}
+                <div class="form-group col-sm-15 row" style="margin-top: 23px;">
+                    <div class="form-control-label col-sm-3">Grade:</div>
+                    <div class="form-control form-control-sm col-sm-3">{{ current_grade }}</div>
+                </div>
+                <div class="form-group col-sm-15 row" style="margin-top: 23px;">
+                    <div class="form-control-label col-sm-3">Section:</div>
+                    <div class="form-control form-control-sm col-sm-3">{{ current_section }}</div>
+                </div>
+                <div class="form-group col-sm-15 row" style="margin-top: 23px;">
+                    {{ form.class_teacher_opts.label(class="form-control-label col-sm-3") }}
+                    {{ form.class_teacher_opts(class="form-control form-control-sm col-sm-3 ") }}
+                </div>
+                <div class="form-group col-sm-2" style="margin-top: 2%; margin-left: 45%;">
+                    {{ form.submit(class="btn btn-info") }}
+                </div>
+                
+                <input type="button" class="btn btn-info" value="BACK" onclick="history.back(-1)" style="margin-left: 47%;" />
+
+    </form>
+{% endblock content %}
